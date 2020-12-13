@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ride_app/Screens/OrderScreen.dart';
+import 'package:ride_app/Screens/OfferScreen.dart';
 
 import 'Screens/LoginScreen.dart';
 
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginScreen(),
+      home: OffersScreen(),
     );
   }
 }
