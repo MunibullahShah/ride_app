@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ride_app/Screens/OrderScreen.dart';
-import 'package:ride_app/Screens/OfferScreen.dart';
+import 'package:ride_app/Screens/ChatScreen.dart';
+import 'package:ride_app/Screens/SupportScreen.dart';
 
 import 'Screens/LoginScreen.dart';
 
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: OffersScreen(),
+      home: SupportScreen(),
     );
   }
 }
