@@ -49,6 +49,7 @@ class OrderScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     IconButton(
+                      onPressed: () {},
                       icon: Icon(
                         Icons.camera_alt,
                         color: Color.fromRGBO(43, 61, 145, 1),

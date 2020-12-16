@@ -69,8 +69,7 @@ class LoginScreen extends StatelessWidget {
                           height: 50,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              gradient: LinearGradient(
-                                  colors: [
+                              gradient: LinearGradient(colors: [
                                 Color.fromRGBO(143, 148, 251, 1),
                                 Color.fromRGBO(143, 148, 251, .6),
                               ])),
