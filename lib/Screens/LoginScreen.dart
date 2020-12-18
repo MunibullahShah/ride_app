@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:ride_app/main.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -65,20 +72,52 @@ class LoginScreen extends StatelessWidget {
                         SizedBox(
                           height: 30,
                         ),
-                        Container(
-                          height: 50,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              gradient: LinearGradient(colors: [
-                                Color.fromRGBO(143, 148, 251, 1),
-                                Color.fromRGBO(143, 148, 251, .6),
-                              ])),
-                          child: Center(
-                            child: Text(
-                              "Login",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Radio(
+                              value: true,
+                              groupValue: MyApp.isShipper,
+                              onChanged: _account,
+                            ),
+                            Text("Shipper"),
+                            Radio(
+                                value: false,
+                                groupValue: MyApp.isShipper,
+                                onChanged: _account),
+                            Text("Traveller"),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            if (MyApp.isShipper == null) {
+                              setState(() {
+                                Fluttertoast.showToast(
+                                    msg: 'Select Profile',
+                                    toastLength: Toast.LENGTH_SHORT);
+                              });
+                            } else {
+                              Navigator.pushNamed(context, 'offer');
+                            }
+                          },
+                          child: Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                gradient: LinearGradient(colors: [
+                                  Color.fromRGBO(143, 148, 251, 1),
+                                  Color.fromRGBO(143, 148, 251, .6),
+                                ])),
+                            child: Center(
+                              child: Text(
+                                "Login",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
                         ),
@@ -98,5 +137,11 @@ class LoginScreen extends StatelessWidget {
             ),
           )),
     );
+  }
+
+  void _account(bool value) {
+    setState(() {
+      MyApp.isShipper = value;
+    });
   }
 }

@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
-class NewRequestScreen extends StatelessWidget {
+class NewRequestScreen extends StatefulWidget {
+  @override
+  _NewRequestScreenState createState() => _NewRequestScreenState();
+}
+
+class _NewRequestScreenState extends State<NewRequestScreen> {
+  String dropDownValue = '0.1-5 kg';
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -43,9 +49,44 @@ class NewRequestScreen extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Expanded(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.camera_alt,
+                      color: Color.fromRGBO(43, 61, 145, 1),
+                    ),
+                    iconSize: 40,
+                  ),
+                  DropdownButton<String>(
+                    value: dropDownValue,
+                    onChanged: (String newValue) {
+                      setState(() {
+                        dropDownValue = newValue;
+                      });
+                    },
+                    items: <String>[
+                      '0.1-5 kg',
+                      '5.1-10 kg',
+                      '10.1-15 kg',
+                      '15.1-20 kg'
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(15),
                   child: Container(
                     height: 50,
                     decoration: BoxDecoration(
