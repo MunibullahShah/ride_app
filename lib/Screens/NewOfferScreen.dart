@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class OrderScreen extends StatelessWidget {
+class NewOfferScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -45,42 +45,24 @@ class OrderScreen extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      icon: Icon(
-                        Icons.camera_alt,
-                        color: Color.fromRGBO(43, 61, 145, 1),
-                      ),
-                      iconSize: 40,
+                child: Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromRGBO(43, 61, 145, 1),
+                        Color.fromRGBO(42, 163, 220, .6),
+                      ],
                     ),
-                    SizedBox(
-                      width: 30,
+                  ),
+                  child: Center(
+                    child: Text(
+                      "Post",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
                     ),
-                    Expanded(
-                      child: Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          gradient: LinearGradient(
-                            colors: [
-                              Color.fromRGBO(43, 61, 145, 1),
-                              Color.fromRGBO(42, 163, 220, .6),
-                            ],
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Post",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ],
