@@ -159,7 +159,7 @@ class _OffersScreenState extends State<OffersScreen> {
               title: new Text(
                 'Offers',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: iColors.black,
                 ),
               ),
             ),
