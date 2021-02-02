@@ -32,7 +32,7 @@
     if(!isset($data['selfie']))
         return json_error("No 'selfie' passed!", -1);
 
-    $data[pass]= hash('whirlpool', $data[pass]);
+    $data['pass']= hash('whirlpool', $data['pass']);
     $result = $conn->query("INSERT INTO $table (Password, Email, ContactNo) VALUES ('$data[pass]', '$data[email]', '$data[number]')");
 
     if(!$result)
