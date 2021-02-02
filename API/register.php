@@ -4,7 +4,6 @@
     {
         $arr = array('message' => $message, 'code' => $code);
         exit(json_encode($arr));
-        
     }
 	$servername = "localhost";
     $username = "itemjetc_app";
@@ -13,7 +12,7 @@
     $table = "users";
  
     $json = file_get_contents('php://input');
-    $data = json_decode($json);
+    $data = json_decode($json,true);
      
     // Create Connection
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -33,13 +32,19 @@
     if(!isset($data['selfie']))
         return json_error("No 'selfie' passed!", -1);
 
-    $result = $conn->query("INSERT INTO $table (Password, Email, ContactNo) VALUES ($data[pass], $data[email], $data[number])");
+    $data[pass]= hash('whirlpool', $data[pass]);
+    $result = $conn->query("INSERT INTO $table (Password, Email, ContactNo) VALUES ('$data[pass]', '$data[email]', '$data[number]')");
 
     if(!$result)
     {
         return json_error("Already exits!", 0);
     }
+
+    $userID = $conn->insert_id;
+    $lName = "../Images/L/".$userID.".jpg";
+    $sName = "../Images/S/".$userID.".jpg";
     
-    file_put_contents("TestFile.jpg", file_get_contents($data['lisence']));
-    return json_error("Added", $conn->insert_id);
+    file_put_contents($lName, file_get_contents($data['lisence']));
+    file_put_contents($sName, file_get_contents($data['selfie']));
+    return json_error("Added", $userID);
 ?>
