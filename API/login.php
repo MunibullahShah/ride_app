@@ -32,7 +32,7 @@
 
     if(!$result)
     {
-        json_error($query, -2);
+        json_error("Failed! Unknown error", -2);
     }
     
     if($row = $result -> fetch_assoc())

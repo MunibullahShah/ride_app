@@ -33,14 +33,20 @@
         return json_error("No 'selfie' passed!", -1);
 
     $data['pass']= hash('whirlpool', $data['pass']);
-    $result = $conn->query("INSERT INTO $table (Password, Email, ContactNo) VALUES ('$data[pass]', '$data[email]', '$data[number]')");
+
+    $code = random_int(1000, 9999);
+    $result = $conn->query("INSERT INTO $table (Password, Email, ContactNo, Code) VALUES ('$data[pass]', '$data[email]', '$data[number]', $code)");
 
     if(!$result)
     {
         return json_error("Already exits!", 0);
     }
-
+    $headers = "From: admin@itemjet.com";
     $userID = $conn->insert_id;
+
+    mail($data['email'],"Ride App registration complete", "Please visit this link https://itemjetc.mywhc.ca/API/verify.php?id=$userID&code=$code\n\nThanks.", $headers);
+
+    
     $lName = "../Images/L/".$userID.".jpg";
     $sName = "../Images/S/".$userID.".jpg";
     
