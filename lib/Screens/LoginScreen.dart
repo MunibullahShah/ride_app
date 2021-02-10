@@ -28,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: EdgeInsets.all(30.0),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         Container(
                           padding: EdgeInsets.all(5),
@@ -59,6 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Container(
                                 padding: EdgeInsets.all(8.0),
                                 child: TextField(
+                                  obscureText: true,
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
                                       hintText: "Password",
@@ -89,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ],
                         ),
                         SizedBox(
-                          height: 30,
+                          height: 20,
                         ),
                         GestureDetector(
                           onTap: () {
@@ -122,12 +124,28 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         SizedBox(
-                          height: 70,
+                          height: 20,
                         ),
-                        Text(
-                          "Forgot Password?",
-                          style: TextStyle(
-                              color: Color.fromRGBO(143, 148, 251, 1)),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Text(
+                            "Forgot Password?",
+                            style: TextStyle(
+                                color: Color.fromRGBO(143, 148, 251, 1)),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, 'registration');
+                          },
+                          child: Text(
+                            "New user? Register",
+                            style: TextStyle(
+                                color: Color.fromRGBO(143, 148, 251, 1)),
+                          ),
                         ),
                       ],
                     ),

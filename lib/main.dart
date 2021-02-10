@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:ride_app/Screens/NewOfferScreen.dart';
 import 'package:ride_app/Screens/NewRequestScreen.dart';
 import 'package:ride_app/Screens/OfferScreen.dart';
+import 'package:ride_app/Screens/RegistrationScreen.dart';
 import 'package:ride_app/Screens/RequestScreen.dart';
 import 'package:ride_app/Screens/SupportScreen.dart';
 
 import 'Screens/LoginScreen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(
     MyApp(),
   );
@@ -33,6 +36,7 @@ class MyApp extends StatelessWidget {
         'support': (context) => SupportScreen(),
         'new Request': (context) => NewRequestScreen(),
         'new Offer': (context) => NewOfferScreen(),
+        'registration': (context) => RegistrationScreen(),
       },
     );
   }
