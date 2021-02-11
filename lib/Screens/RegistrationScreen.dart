@@ -473,8 +473,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         child: GestureDetector(
                           onTap: () async {
                             try {
-                              await register(email.text, number.text, pass.text,
-                                  address.text);
+                              await register(email.text, ("" + number.text),
+                                  pass.text, address.text);
                               Navigator.pop(context);
                             } catch (exception) {
                               print(exception);
@@ -514,27 +514,31 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   _openCamera(BuildContext context, int selection) async {
     var picture = await ImagePicker.pickImage(source: ImageSource.camera);
     this.setState(() {
-      selection == 0 ? widget.license = picture : widget.selfie = picture;
+      selection == 0
+          ? widget.license = picture.path
+          : widget.selfie = picture.path;
     });
     Navigator.of(context).pop();
   }
 
-  register(email, number, pass, address) async {
+  register(String email, String number, String pass, String address) async {
+    print(widget.selfie);
     String license64base =
-        base64Encode(Io.File(widget.license).readAsBytesSync());
+        base64Encode(Io.File(widget.license.path).readAsBytesSync());
     String selfie64base =
-        base64Encode(Io.File(widget.selfie).readAsBytesSync());
+        base64Encode(Io.File(widget.selfie.path).readAsBytesSync());
     Map data = {
       "email": email,
       "number": number,
       "pass": pass,
       "lisence": license64base,
       "selfie": selfie64base,
-      "address": address,
     };
+    print("Map: " + data.toString());
     var response = null;
     response = await http.post("https://itemjetc.mywhc.ca/API/register.php",
         body: data);
-    print("Hello" + response);
+    print("Hello" + response.statusCode.toString());
+    print("response" + response.body);
   }
 }
