@@ -14,6 +14,8 @@
     $json = file_get_contents('php://input');
     $data = json_decode($json,true);
      
+    if($data == null)
+        return json_error("Inavlid json passed!: \n$json", -1);
     // Create Connection
     $conn = new mysqli($servername, $username, $password, $dbname);
     // Check Connection
