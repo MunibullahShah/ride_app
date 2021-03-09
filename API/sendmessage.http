@@ -1,0 +1,7 @@
+POST https://itemjetc.mywhc.ca/API/sendmessage.php
+
+{
+    "Sender": 1,
+    "Receiver": 8,
+    "Message": "But why?"
+}

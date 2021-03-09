@@ -1,0 +1,8 @@
+POST https://itemjetc.mywhc.ca/API/messages.php
+
+{
+    "Sender": 1,
+    "Receiver": 8,
+    "Limit": 20,
+    "Offset": 0
+}

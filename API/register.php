@@ -33,11 +33,13 @@
         return json_error("No 'lisence' passed!", -1);
     if(!isset($data['selfie']))
         return json_error("No 'selfie' passed!", -1);
+    if(!isset($data['name']))
+        return json_error("No 'name' passed!", -1);
 
     $data['pass']= hash('whirlpool', $data['pass']);
 
     $code = random_int(1000, 9999);
-    $result = $conn->query("INSERT INTO $table (Password, Email, ContactNo, Code) VALUES ('$data[pass]', '$data[email]', '$data[number]', $code)");
+    $result = $conn->query("INSERT INTO $table (Password, Email, ContactNo, Code, Name) VALUES ('$data[pass]', '$data[email]', '$data[number]', $code, '$data[name]')");
 
     if(!$result)
     {
