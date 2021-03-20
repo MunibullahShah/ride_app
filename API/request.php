@@ -23,30 +23,29 @@
         return json_error("Connection Failed", -1);
     }
 
+    if(!isset($data['User']))
+        return json_error("No 'User' passed!", -1);
     if(!isset($data['Start']))
         return json_error("No 'Start' point passed!", -1);
     if(!isset($data['End']))
         return json_error("No 'End' point passed!", -1);
+    if(!isset($data['Weight']))
+        return json_error("No 'Weight' passed!", -1);
+    if(!isset($data['Description']))
+        return json_error("No 'Description' passed!", -1);
+    if(!isset($data['Image']))
+        return json_error("No 'Image' passed!", -1);
 
-    $query = "SELECT a.ID, User, Start, End, Weight, Description, Name FROM $table AS a INNER JOIN users AS b ON a.User = b.ID WHERE Start LIKE '$data[Start]' AND End LIKE '$data[End]' AND Completed = 0";
-    $result = $conn->query($query);
-    
+    $result = $conn->query("INSERT INTO $table (User, Start, End, Weight, Description) VALUES ($data[User], '$data[Start]', '$data[End]', $data[Weight], '$data[Description]')");
+
     if(!$result)
     {
-        json_error("Failed! Unknown error", -2);
+        return json_error("Already exits!", 0);
     }
-    $rows = array();
-
-    //retrieve and print every record
-    while($r = $result->fetch_assoc()){
-        // $rows[] = $r; has the same effect, without the superfluous data attribute
-        $rName = "../Images/R/".$r['ID'].".jpg";
-        $rType = pathinfo($rName, PATHINFO_EXTENSION);
-        $rImg = file_get_contents($rName);
-        $r['Image'] = 'data:image/' . $rType . ';base64,' . base64_encode($rImg);
-        $rows[] = array('data' => $r);
-    }
-
-    // now all the rows have been fetched, it can be encoded
-    exit(json_encode($rows));
+    $requestID = $conn->insert_id;
+    
+    $lName = "../Images/R/".$requestID.".jpg";
+    
+    file_put_contents($lName, file_get_contents($data['Image']));
+    return json_error("Added", $requestID);
 ?>
