@@ -20,6 +20,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController pass = TextEditingController();
   TextEditingController address = TextEditingController();
 
+  bool loading = false;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -193,7 +195,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     color: Colors.cyanAccent,
                                   ),
                                   onPressed: () {
-                                    takeImageDailog(context, 0, 0);
+                                    dailogCreation(context, 0, 0);
                                   },
                                 ),
                               ],
@@ -232,7 +234,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     color: Colors.cyanAccent,
                                   ),
                                   onPressed: () {
-                                    takeImageDailog(context, 1, 0);
+                                    dailogCreation(context, 1, 0);
                                   },
                                 ),
                               ],
@@ -254,7 +256,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            takeImageDailog(context, 1, 1);
+                            dailogCreation(context, 1, 1);
                           },
                           child: Container(
                             height: 50,
@@ -287,7 +289,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   ///picSelection is for selecting selfie or license
   ///dailogue selection is for selectign pic or agrement dailogue
-  takeImageDailog(
+  dailogCreation(
       BuildContext context, int picSelection, int dailogueSelection) {
     return showDialog(
         context: context,
@@ -506,7 +508,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   _openGallery(BuildContext context, int selection) async {
     var picture = await ImagePicker.pickImage(source: ImageSource.gallery);
     this.setState(() {
-      selection == 0 ? widget.license = picture : widget.selfie = picture;
+      selection == 0
+          ? widget.license = picture.path
+          : widget.selfie = picture.path;
     });
     Navigator.of(context).pop();
   }
@@ -514,9 +518,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   _openCamera(BuildContext context, int selection) async {
     var picture = await ImagePicker.pickImage(source: ImageSource.camera);
     this.setState(() {
-      selection == 0
-          ? widget.license = picture.path
-          : widget.selfie = picture.path;
+      selection == 0 ? widget.license = picture : widget.selfie = picture;
     });
     Navigator.of(context).pop();
   }
@@ -534,10 +536,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       "lisence": license64base,
       "selfie": selfie64base,
     };
-    print("Map: " + data.toString());
+    var str = json.encode(data);
     var response = null;
-    response = await http.post("https://itemjetc.mywhc.ca/API/register.php",
-        body: data);
+    response = await http.post(
+      "https://itemjetc.mywhc.ca/API/register.php",
+      headers: {"Content-Type": "application/json"},
+      body: str,
+    );
     print("Hello" + response.statusCode.toString());
     print("response" + response.body);
   }

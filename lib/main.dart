@@ -17,6 +17,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  static int userId;
+
   ///True for shipper and false for traveller
   static bool isShipper;
   // This widget is the root of your application.

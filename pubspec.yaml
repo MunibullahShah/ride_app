@@ -35,6 +35,8 @@ dependencies:
   path: ^1.7.0
   image_picker: ^0.6.7+21
   http: ^0.12.2
+  country_state_city_picker: ^1.2.7
+  shared_preferences: ^0.5.12
 
 
 dev_dependencies:
