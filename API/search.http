@@ -1,6 +1,6 @@
 POST https://itemjetc.mywhc.ca/API/search.php
 
 {
-    "Start": "Lahore",
-    "End": "Karachi"
+    "Start": "%",
+    "End": "%"
 }
