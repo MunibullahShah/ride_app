@@ -1,0 +1,7 @@
+POST https://itemjetc.mywhc.ca/API/bid.php
+
+{
+    "RequestID": 1,
+    "UserID": 1,
+    "Amount": 300.5
+}

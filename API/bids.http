@@ -1,0 +1,5 @@
+POST https://itemjetc.mywhc.ca/API/bids.php
+
+{
+    "ID": 1
+}

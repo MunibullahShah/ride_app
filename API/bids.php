@@ -9,7 +9,7 @@
     $username = "itemjetc_app";
     $password = "&E}Bv6Wc=Ctf";
     $dbname = "itemjetc_app";
-    $table = "requests";
+    $table = "bids";
  
     $json = file_get_contents('php://input');
     $data = json_decode($json,true);
@@ -25,23 +25,21 @@
 
     $query = "";
 
-    if(isset($data['ID']))
+    if(isset($data['UserID']))
     {
-        $query = "SELECT a.ID, User, Start, End, Weight, Description, Name FROM $table AS a INNER JOIN users AS b ON a.User = b.ID WHERE User = $data[ID] AND Completed = 0";
-        $result = $conn->query($query);
+        $query = "SELECT amount as Amount, user AS UserID FROM $table WHERE request IN (SELECT ID FROM requests WHERE User = $data[UserID] AND Completed = 0)";
+    }
+    else if(isset($data['ID']))
+    {
+        $query = "SELECT amount as Amount, user AS UserID FROM $table WHERE request = $data[ID]";
     }
     else
-    {
-        if(!isset($data['Start']))
-        return json_error("No 'Start' point passed!", -1);
-        if(!isset($data['End']))
-            return json_error("No 'End' point passed!", -1);
-
-        $query = "SELECT a.ID, User, Start, End, Weight, Description, Name FROM $table AS a INNER JOIN users AS b ON a.User = b.ID WHERE Start LIKE '$data[Start]' AND End LIKE '$data[End]' AND Completed = 0";
-    }
+        return json_error("No 'ID' or 'UserID' passed!", -1);
+    
+    
     
     $result = $conn->query($query);
-    
+
     if(!$result)
     {
         json_error("Failed! Unknown error", -2);
@@ -50,11 +48,6 @@
 
     //retrieve and print every record
     while($r = $result->fetch_assoc()){
-        // $rows[] = $r; has the same effect, without the superfluous data attribute
-        $rName = "../Images/R/".$r['ID'].".jpg";
-        $rType = pathinfo($rName, PATHINFO_EXTENSION);
-        $rImg = file_get_contents($rName);
-        $r['Image'] = 'data:image/' . $rType . ';base64,' . base64_encode($rImg);
         $rows[] = array('data' => $r);
     }
 
