@@ -1,0 +1,6 @@
+POST https://itemjetc.mywhc.ca/API/cname.php
+
+{
+    "User": 1,
+    "name": "Arose Niazi"
+}

@@ -1,0 +1,6 @@
+POST https://itemjetc.mywhc.ca/API/cmail.php
+
+{
+    "User": 1,
+    "email": "arose.niazi@yahoo.com"
+}
